@@ -1,0 +1,82 @@
+.todo-container {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    margin: 0 auto;
+    padding: 20px;
+    width: 300px;
+    background-color: #dce8d6;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    
+}
+
+.input-container {
+    margin-bottom: 10px;
+}
+
+input[type="text"] {
+    padding: 8px;
+    width: 200px;
+    margin-right: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    outline: none;
+}
+
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 5px;
+}
+
+.completed {
+    text-decoration: line-through;
+    color: #888;
+}
+
+/* Button CSS */
+
+.task-container {
+    display: flex;
+    align-items: center;
+}
+
+.task-content {
+    flex-grow: 1; /* Allow the task content to grow and occupy remaining space */
+    padding: 8px; /* Add padding for better visual separation */
+    background-color: #f4f4f4; /* Set a light background color */
+    border-radius: 5px; /* Add rounded corners */
+}
+
+.task-container button {
+    width: 150px;
+    height: 30px;
+    margin-left: 10px; 
+    background-color: rgb(66, 110, 198);
+    color: #fff; 
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    transition: background-color 0.3s ease; 
+}
+
+.task-container button:hover {
+    background-color: #68e178; 
+}
+.button {
+    width: 150px;
+    height: 30px;
+    
+    background-color: rgb(66, 110, 198);
+    color: #fff; 
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    transition: background-color 0.3s ease; 
+}
+.button:hover {
+    background-color: #50d485; 
+}
