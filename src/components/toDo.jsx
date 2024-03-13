@@ -1,25 +1,50 @@
-import GetAlltasks from "../api/get-data";
-import React, { useState } from 'react'
+import { getToDo, postToDo } from "../api/get-data";
+import React, { useEffect, useState } from 'react'
 import './toDo.css'; 
 
 function toDo () {
     const [tasks, setTasks] = useState([]);
     const [taskInput, setTaskInput ] =useState('');
 
-    const addTask = () => {
-        if(taskInput.trim() != ''){                                    
-            setTasks([...tasks,{id:Date.now(), title:taskInput }]);    
-            setTaskInput('');                                          
-        } 
+    useEffect(()   => {
+      const fetchToDo = async ()=> {
+        try{
+          const res = await getToDo();
+          setTasks(res);
+          
+        }catch(error){
+          console.log(error);
+
+        }
+      }
+      fetchToDo();
+    }, [])
+
+   
+    const addTask = async () => {
+      if (taskInput.trim() === '') {
+        return;
+      }
+  
+      const newTask = {
+        title: taskInput,
+        completed: false
+      };
+  
+      try {
+        const addedTask = await postToDo(newTask);
+        addedTask.id = Date.now();
+        setTasks((prevTasks) => [addedTask, ...prevTasks]);
+        setTaskInput('');
+      } catch (error) {
+        console.log('Error adding task:', error); 
+      }
     };
 
   const handleInputChange = (e) => {
     setTaskInput(e.target.value);
   };
 
-  const handleTasksFetched = (fetchedTasks) => {
-        setTasks(fetchedTasks);
-    }
 
   const toggleTaskCompletion = (id) =>{
     const updatedTasks = tasks.map(task =>
@@ -27,6 +52,12 @@ function toDo () {
       :task
       );
       setTasks(updatedTasks);}
+    
+     // Delete a task
+  const handleDeleteTask = (taskId) => {
+    setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
+    
+  };
 
 
   return (
@@ -41,7 +72,7 @@ function toDo () {
             <button className='button' onClick={addTask}>Add Task</button>
         </div>
       
-      <GetAlltasks onTasksFetched={handleTasksFetched} />
+      {/* <GetAlltasks onTasksFetched={handleTasksFetched} /> */}
 
       <ul>
         {tasks.map((task) => (
@@ -55,6 +86,9 @@ function toDo () {
               </span>
               <button onClick={() => toggleTaskCompletion(task.id)}>
                 {task.completed ? 'Mark Incomplete' : 'Mark Complete'}
+              </button>
+              <button onClick={() => handleDeleteTask(task.id)}>
+                Delete
               </button>
             </div>
           </li>
